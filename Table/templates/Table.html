@@ -1,0 +1,48 @@
+{% load custom_filters %}
+<style>
+table {width: 100%; border-collapse: separate; border-spacing: 4px;}
+table thead tr {color: #ffffff; font-weight: bold;}
+table thead tr td {border-radius: 4px 4px 0 0; background: #2e82c3;}
+table tbody tr td {border: 1px solid #2e82c3; border-radius: 4px; background: #cbdfef;}
+table tbody tr td:hover {background: #a2c3dd; transition-duration: 0.2s;}
+</style>
+
+<table>
+    <thead>
+      <tr>
+        <td>
+          0_0
+        </td>
+
+        {%  for column in columns %}
+        <td>
+          <a href="?name={{column.id}}" class="filter" method="POST">
+            {{column.name}}
+          </a>
+        </td>
+        {% endfor %}
+      </form>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for file in files %}
+      <tr>
+        <td>
+          {{file.name}}
+        </td>
+        {% for column in columns %}
+        <td>
+          {% for entry in data %}
+          {% if entry.column == column %}
+          {% if entry.file == file %}
+          {{ entry.data }}
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
